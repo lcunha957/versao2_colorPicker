@@ -24,16 +24,19 @@ class ViewController: UIViewController, UIColorPickerViewControllerDelegate {
     @objc private func didTapSelectColor(){
         let colorPickerVC = UIColorPickerViewController()
         colorPickerVC.delegate = self
+        colorPickerVC.supportsAlpha = false 
         present(colorPickerVC, animated: true)
         
     }
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
         let color = viewController.selectedColor
+        view.backgroundColor = color
     }
     
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         let color = viewController.selectedColor
+        view.backgroundColor = color
     }
 
     
