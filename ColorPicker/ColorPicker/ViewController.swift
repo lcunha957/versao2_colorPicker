@@ -7,42 +7,35 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIColorPickerViewControllerDelegate {
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let button = UIButton(frame:CGRect(x:0, y:0, width: 200, height: 50))
+        view.addSubview(button)
+        button.backgroundColor = .systemGreen
+        button.setTitle("Selecione a Cor", for: .normal)
+        
+        button.center = view.center
+        button.addTarget(self, action: #selector(didTapSelectColor), for: .touchUpInside)
     }
 
-    @IBAction func changeBackground(_ sender: Any) {
-        // Initializing Color Picker
-        let picker = UIColorPickerViewController()
-
-        // Setting the Initial Color of the Picker
-        picker.selectedColor = self.view.backgroundColor!
-
-        // Setting Delegate
-        picker.delegate = self
-
-        // Presenting the Color Picker
-        self.present(picker, animated: true, completion: nil)
+    @objc private func didTapSelectColor(){
+        let colorPickerVC = UIColorPickerViewController()
+        colorPickerVC.delegate = self
+        present(colorPickerVC, animated: true)
+        
     }
     
-    extension ViewController: UIColorPickerViewControllerDelegate {
-        
-        //  Called once you have finished picking the color.
-        func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-            self.view.backgroundColor = viewController.selectedColor
-            
-        }
-        
-        //  Called on every color selection done in the picker.
-        func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
-                self.view.backgroundColor = viewController.selectedColor
-        }
-        
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        let color = viewController.selectedColor
+    }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        let color = viewController.selectedColor
     }
 
+    
 }
 
